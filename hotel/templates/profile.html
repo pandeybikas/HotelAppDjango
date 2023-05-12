@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %} User profile  {% endblock title %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="w-40 shadow p-3">
+        <h3>{{user.username}} Profile Info </h3>
+        <hr>
+        
+        <center>
+            {%   if user.profile.phone %}
+            <img src="{{user.profile.image}}" style="width: 180px; height:180px; border-radius: 50%; background-color: red; padding: 10px;">
+        
+            <ul>
+            <li style="list-style-type: none">{{user.profile.fullName}}</li>
+            <li style="list-style-type: none">{{user.profile.phone}}</li>
+            <li style="list-style-type: none">{{user.profile.address}}</li>
+            <li style="list-style-type: none">{{user.email}}</li>
+        </ul>
+        {% endif %}
+        <a href="{%  url 'edit-Profile' user.profile.id %}" class="btn btn-secondary">Update Info </a>
+        </center>
+       
+    </div>
+    {% if myTrip %}
+    <h3 class="mt-5 mb-5"> Your Trip Details </h3> 
+    <hr>
+    <div class="row">
+    {% for trip in myTrip %}
+    <div class="col-4 mt-5 mb-5">
+       <p> Check-In Date - 
+        <b>{{trip.check_in}}</b></p>
+        <p> Check-Out Date - 
+            <b> {{trip.check_out}}</b> </p>
+            <p> Hotel Name -
+                <b>{{trip.hotel}}</b></p>
+       <p> Trip Cost -
+        <b> {{trip.hotel.price}} </b></p>
+        
+    </div>
+    <div class="col-4 mt-5 mb-5">
+        <center>
+        <h4>Your Hotel Image</h4>
+        <img src="https://pngimg.com/d/red_arrow_PNG36.png" style="width: 100px; height: 100px;">
+        </center>
+    </div>
+    <div class="col-4 mt-5 mb-5">
+        <img src="{{trip.hotel.image.url}}" style="width: 300px; height: 300px;">
+    </div>
+    {% endfor %}
+</div>
+   {% endif %}
+</div>
+
+{% endblock content %}
+
+
+

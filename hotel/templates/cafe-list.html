@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Cafe List  {% endblock title %}
+{% block content %}
+<h3 class="shadow p-3 text-center">Cafe suggestion from our customers </h3>
+<div class="container mt-5 mb-5">
+    
+<div class="row">
+    {% for cafe in all_cafe %}
+    <div class="col-3 shadow p-3 border me-2" style="width: 24%;">
+        <img class="shadow" src="{{cafe.cafe_image.url}}" style="width: 100%; height: 120px;">
+        <h4 style="color: green">{{cafe.cafe_name}}</h4>
+        <p style="font-weight: 700">✅{{cafe.speciality}}</p>
+        <p>{{cafe.about | truncatechars:70}}</p>
+        <p>🌎 {{cafe.address}}</p>
+        <p style="color: green;"> Suggested By - {{cafe.feeder_name}} </p>
+        
+    </div>
+    {% endfor %}
+</div>
+<center>
+    <a href="{% url 'add-cafe' %}" class="btn btn-success mt-5"> Suggest Cafe </a>
+</center>
+
+</div>
+
+
+{% endblock content %}
+
+
+
+

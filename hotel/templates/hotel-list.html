@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %} Hotel list  {% endblock title %}
+{% block content %}
+<div class="container mt-5 mb-5">
+<div class="row mb-3 mt-5">
+    <div class="col-4">
+        <div class="shadow p-3" style="background-color: #ecfac0;">
+            <h4>🔎 Filter</h4>
+            <h5>Hotel name</h5>
+            <form>
+                <input type="search" class="form-control p-2 " name="search" placeholder="type hotel name...">
+                <h5 class="mt-2">Hotel City</h5>
+                <select name= "city" class="form-control" id="exampleFormControlSelect1" >
+                    <option selected disabled=true>Select City</option>
+                    {% for i in city_obj %}
+                    <option >{{i.city_name}}</option>
+                    {% endfor %}
+                </select>
+                <h5 class="mt-2">Hotel ammenties</h5>
+                {% for j in amm_obj %}
+                <input type="checkbox"  name="amminity" {% if j.name in search_amm %} checked {% endif %} value="{{j.name}}">
+                <label>{{j.name}}</label><br>
+                {% endfor %}
+                <h5 class="mt-2">Hotel Price</h5>
+                <div name="sort_by">
+                <input name="sort_by" type="checkbox" {% if search_price == 'ASC' %} checked {% endif %} value="ASC">
+                <label>Lower to Higher</label><br>
+                <input name="sort_by" type="checkbox" {% if search_price == 'DSC' %} checked {% endif %} value="DSC">
+                <label> Higher to Lower </label><br>
+                </div>
+                <br>
+
+              
+                
+              
+
+                <button type="submit" class="btn btn-primary mt-2">SEARCH HOTEL </button>
+            </form>
+        </div>
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col-7">
+    {% for hotel in hotel_obj %}
+    <div class="col-12 shadow p-3 border my-2">
+        <img src="{{hotel.image.url}}" style="width: 100%; height: 350px;">
+        <p class="text-center mt-2" style="font-size: 25px; font-weight: 600;">{{hotel.hotel_name}}</p>
+        <p style="color: green; font-size: 20px;">₹ {{hotel.price}}/Night</p>
+        <p>{{hotel.desc}}</p>
+        
+        {% for k in hotel.amminity.all %}
+        <b>✅{{k.name}} &nbsp &nbsp &nbsp </b>
+        {% endfor %}
+        <p class="mt-2" style="font-size: 22px;">🌆{{hotel.location}}</p>
+        <a href="{% url 'hotel-detail' hotel.slug %}" class="btn btn-info">👁️ Detail</a>
+        <a href="{% url 'book-room' hotel.slug %}" class="btn btn-info">🛎️ Book Room</a>
+    </div>
+
+    {% endfor %}
+    <nav aria-label="Page navigation example" class="d-flex flex-row-reverse mr-3">
+        <ul class="pagination p-2">
+                       
+            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+            
+            {% if hotel_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{hotel_obj.previous_page_number}}">Previous</a></li>
+            {% endif %}
+            {% if hotel_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{hotel_obj.next_page_number}}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{hotel_obj.paginator.num_pages}}">Last</a></li>
+                
+             {%endif %}
+        </ul>
+    </nav>
+</div>
+</div>
+</div>
+{% endblock content %}
+
+
+

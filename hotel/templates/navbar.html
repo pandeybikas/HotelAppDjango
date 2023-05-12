@@ -1,0 +1,67 @@
+<style>
+  .nav-link  {
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+    font-family : poppins;
+  }
+  .nav-link:hover {
+    color : green;
+  }
+  .nav-link.active: hover {
+    color: green;
+
+  }
+</style>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <a class="navbar-brand" href="{%  url 'home' %}">
+           <img class="me-2" src="/static/images/airplane.png" style="width: 60px; height: 60px;">
+           <b>Django-Trip</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+      
+      </div>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+        <li class="nav-item" >
+          <a class="nav-link active" aria-current="page" href="{%  url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{%  url 'hotel-list' %}">Hotel List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{%  url 'cafe-list' %}">Cafe List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="{%  url 'blog-list' %}">Travel Stories</a>
+        </li>
+       {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link disabled">Hello - {{user.username}}</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Account
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{%  url 'profile' %}">Profile</a></li>
+            <li><a class="dropdown-item" href="{%  url 'add-cafe' %}">Add Cafe</a></li>
+            <li><a class="dropdown-item" href="{%  url 'add-blog' %}">Share Story</a></li>
+            <li><a class="dropdown-item" href="{%  url 'logout' %}">Logout</a></li>
+            
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{%  url 'signup' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{%  url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>

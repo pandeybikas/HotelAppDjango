@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}  Add comment  {% endblock title %} 
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+    <b>Add comment on </b> "{{blogInst.title}}"
+    <form method="POST" class="shadow p-4 mt-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Post comment </button>
+        <a href="{% url 'blog-detail' blogInst.slug %}" class="btn btn-secondary">Cancel</a>
+
+    </form>
+</div>
+
+
+{% endblock content %}
+
+
+
+
+

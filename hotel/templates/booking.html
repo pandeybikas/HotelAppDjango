@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %} Room Booking   {% endblock title %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <form method="POST" class="w-60 p-3 shadow">
+        <h3>Book Room at {{room_obj.hotel_name}} </h3>
+        {% csrf_token %}
+       
+        {{bookform.as_p}}
+       
+        <!---
+        <label>Full Name </label>
+        <input type="text" name='fullname' class="form-control" placeholder="enter full name...">
+        <label>Email </label>
+        <input type="email" name='email' class="form-control" placeholder="enter email address...">
+        <label>Number Of Guest </label>
+        <input type="number" name='guest' class="form-control">
+        <label>check-in date </label>
+        <input type="date" name='check_in' class="form-control">
+        <label>Check-out Date </label>
+        <input type="date" name='check_out' class="form-control">
+        <label>Hotel Name </label>
+        <select class="form-select" name="hotel">
+            <option selected>Select hotel name</option>
+            {% for k in hotel_obj %}
+            <option value={{k.id}}>{{k.hotel_name}}</option>
+            {% endfor %}
+          </select>
+        <input type="text" name='booker' class="form-control" placeholder="enter full name..." hidden>
+        -->
+        <button type="submit" class="btn btn-primary mt-2">Book Room </button>
+    </form>
+</div>
+
+
+{% endblock content %}
+
+
+
+

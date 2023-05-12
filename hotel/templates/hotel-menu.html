@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Hotel Menu Add  {% endblock title %}   
+{% block content %}
+<h2 class="text-center shadow p-3">➕Add New Item in  Menu Card</h2>
+<div class="container mt-5 mb-5">
+    
+    <form method='POST' enctype="multipart/form-data" class="shadow p-4">
+        <h3>🏨 {{menuInst.hotel_name}}</h3>
+        {% csrf_token %}
+        {{menuform.as_p}}
+        <button type="submit" class="btn btn-success">Add item </button>
+        <a href="{% url 'hotel-detail' menuInst.slug %}" class="btn btn-secondary">Cancel</a>
+
+    </form>
+
+
+</div>
+
+
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}  Publish new story {% endblock title %}
+{% block content %}
+<h3 class="shadow text-center p-3">➕ Share your travel story </h3>
+<div class="container mt-5 mb-5">
+    <form method="POST" enctype="multipart/form-data" class="border p-3 rounded" style="background-color: #e4e8f0;">
+        
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-8">{{blogform.title|as_crispy_field}}</div>
+            <div class="col-4">{{blogform.publish_date|as_crispy_field}}</div>
+                
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">{{blogform.desc|as_crispy_field}}</div>
+                
+        </div>
+        <div class="row mb-3">
+            <div class="col-6">{{blogform.image|as_crispy_field}}</div>
+            <div class="col-6">{{blogform.tag|as_crispy_field}}</div>
+                
+        </div>
+        <div class="card p-3 border-dark text-center mt-5" style="background-color: green; color: white;">
+            About Author
+          </div>
+          <div class="row mb-3 mt-3">
+            <div class="col-6">{{blogform.author|as_crispy_field}}</div>
+            <div class="col-6">{{blogform.author_pic|as_crispy_field}}</div>
+                
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">{{blogform.author_bio|as_crispy_field}}</div>
+            
+                
+        </div>
+        
+        <button type="submit" class="btn btn-success">Submit </button>
+    </form>
+</div>
+
+
+{% endblock content %}
+
+
+
+

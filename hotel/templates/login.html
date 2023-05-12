@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} Login form page   {% endblock title %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <form method="POST" class="w-50 shadow p-3" autocomplete="off">
+        {% csrf_token %}
+        <h3>Login Here </h3>
+        <label>Username </label>
+        <input type="text" name="username" class="form-control" placeholder="type username">
+        <label>Password </label>
+        <input type="password" name="password" class="form-control" placeholder="type password">
+        <button type="submit" class="btn btn-primary mt-3">Login </button>
+  
+   <p class="mt-3">Don't have an account ? <a href="{% url 'signup' %}" style="text-decoration: none;"> Sign-Up  </a></p>
+    </form>
+</div>
+
+{% endblock content %}
+
+

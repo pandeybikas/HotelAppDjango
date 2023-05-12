@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}  Blog submited confirmation   {% endblock title %}     
+{% block content %}
+
+<div class="container mt-5 mb-5">
+<div class="card shadow p-5 w-80">
+  <center>
+    <h2 style="color: green">Story submitted, successfully </h2>
+    <p>Your blog will be published after admin approval </p>
+    <a href="{% url 'blog-list' %}" class="btn btn-success">Read others Blog </a>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Go to Homepage </a> 
+  </center>
+</div>
+
+</div>
+
+
+{% endblock content %}
+
+
+
+

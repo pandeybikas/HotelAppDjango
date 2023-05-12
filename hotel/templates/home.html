@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block title %} Django Trip App | Home   {% endblock title %}
+{% block content %}
+<img src="https://img.freepik.com/free-photo/beautiful-girl-standing-viewpoint-koh-nangyuan-island-near-koh-tao-island-surat-thani-thailand_335224-1094.jpg?w=1060&t=st=1683605387~exp=1683605987~hmac=dbaa864f9445bca9e64a58e0e06d6a34e89cc22f87884074f8f50bfb6c52ac5e"
+        style="width: 100%; height: 600px; opacity: 0.7;">
+<div class="container mt-5 mb-5">
+    <div class="row mb-5">
+    <div class="col-8">
+        <form action="{% url 'hotel-list' %}" class="d-flex " role="search">
+            <input class="form-control me-2 p-3 " name="search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search Hotel</button>
+          </form>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="col-4">
+       
+        <h5 class="mt-1">Hey! {{user.username}}, Search your next trip 🏩</h5>
+        <hr>
+    </div>
+    {% endif %}
+</div>
+    <div class="row mb-3">
+        <h3>Popular hotels near your city </h3>
+        {% for hotel in page_obj %}
+        <div class="col-4 shadow p-3 border me-2" style="width: 32%;">
+            <img class="shadow" src="{{hotel.image}}" style="width: 100%; height: 200px;">
+            <h5 class="mt-2" style="color: green">{{hotel.hotel_name}}</h5>
+            <p style="font-weight: 700">{{hotel.price}}/Night</p>
+            <p>{{hotel.desc | truncatechars:70}}</p>
+            <p>🌎 {{hotel.location}}</p>
+            <a href="{% url 'hotel-detail' hotel.slug %}" class="btn btn-secondary">👁️ Hotel Detail</a>
+            <a href="{% url 'book-room' hotel.slug %}" class="btn btn-success">🛎️ Book Room</a>
+        </div>
+        {% endfor %}
+    </div>
+    <nav aria-label="Page navigation example" class="d-flex flex-row-reverse mr-3">
+        <ul class="pagination p-2">
+                       
+            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+            <li class="page-item"><a class="page-link" href="?page=2">2</a></li>
+            
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Last</a></li>
+                
+             {%endif %}
+        </ul>
+    </nav>
+    <div class="row mt-5 mb-5 shadow" style="background-color: #f2f7f4;">
+        <h2 class="mt-3">Find best hotels in these cities</h2>
+        {%  for city in city_obj %}
+        <div class="col-2 p-3">
+            <a href="{%  url 'city-detail' city.slug %}" style="text-decoration: none; color: black">
+            <img src="{{city.pic.url}}" style="border: 1px solid gray; border-radius: 50%; width: 180px;
+             height: 180px; padding:10px; background-color: #d9fae2;">
+            <h4 class="text-center mt-2">{{city.city_name}}</h4>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+<div class="row mt-5 mb-5">
+    <div class="col-8">
+        <div id="carouselExampleDark" class="carousel carousel-dark slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                {% for cafe in cafe_obj %}
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="{{cafe.cafe_image.url}}" style="width: 100%; height: 450px; opacity:1;">
+                <div class="carousel-caption d-none d-md-block">
+                  <h4 style="color:white">{{cafe.cafe_name}}</h4>
+                  <b  style="color:white">" {{cafe.about | truncatechars:60}}...</b>
+                  
+                  <p style="align:right; color: yellow;"> By - {{cafe.feeder_name}} </p>
+                </div>
+              </div>
+            {% endfor %}
+             
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+    <div class="col-4 p-3">
+        <h3 style="font-weight: 700; color: green;">Suggest cafe to fellow travellers </h3>
+        <p>Pick the best cafe you visited from your last trip, and reveal your favourite place to other 
+            travellers so that everyone can get the same experience. </p>
+            <a href="{% url 'add-cafe' %}" class="btn btn-success mt-2">Suggest Cafe </a>
+    </div>
+</div>
+<div class="row mt- mb-5">
+    <h3> Travel tips shared by travel-writers</h3>
+    {% for blog in all_blog %}
+                {% if blog.approved %}
+                <div class="col-4 p-3 shadow me-3" style="width: 32%;">
+                    <img src="{{blog.image.url}}" style="width: 100%; height: 240px;">
+                    <a href="{%  url 'blog-detail' blog.slug %}" style="text-decoration: none; color: green">
+                    <h5 class="mt-2" style="color: green">{{blog.title}}</h5>
+                    </a>
+                    <p>{{blog.desc |truncatechars:150 }}</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <b>🕑 {{blog.publish_date}}</b>
+                        </div>
+                        <div class="col-6">
+                            <b class="text-right">👨‍🏫{{blog.author}}</b>
+                        </div>
+                    </div>
+                   
+                </div>
+                {% endif %}
+                {% endfor %}
+        
+    </div>
+    <div class="row mt-5  mb-5" style="margin-bottom 20px;">
+        <h3>Must try foods </h3>
+        {% for item in all_menu %}
+        <div class="col-4 shadow p-3 me-3 mb-3" style="width: 32%; height: 250px;">
+               <div class="row">
+                <div class="col-6">
+                    <img src={{item.pic.url}} style="width: 100% ; height: 200px;">
+                </div>
+                <div class="col-6">
+                    <h5 style="color: green">{{item.item}}</h5>
+                    <b>{{item.hotel}}-{{item.hotel.location}}</b>
+                    <p>only @ {{item.price}}</p>
+                    <a href="{% url 'hotel-detail' item.hotel.slug %}" class="btn btn-success mt-2">View Menu </a>
+
+                </div>
+               </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock content %}
+

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Hotel detail   {% endblock title %}
+{% block content %}
+
+
+    <img src="{{detail_obj.image.url}}" style="width: 100%; height: 450px;">
+    <h2 class=" p-3 shadow text-center">Welcome To  {{detail_obj.hotel_name}}</h2>
+<div class="container mt-5 mb-5">
+    
+       
+    <div class="row mt-5 mb-5">
+
+      <div class="col-6 border p-5 rounded">
+        <h3 >Important Details - </h3>
+        <hr>
+        <p style="color: green; font-weight: 600;">{{detail_obj.price}}/Night </p>
+    <p style="color: red; font-weight: 600;">Location - {{detail_obj.location}}</p>
+    <h6>{{detail_obj.desc}}</h6>
+    <hr>
+   <a href="{% url 'book-room' detail_obj.slug %}" class="btn btn-success">Book Room </a>
+      </div>
+      <div class="col-6">
+        <h2 class="text-center">Menu Card  </h2>
+        <a href="{% url 'hotel-menu' detail_obj.slug %}" style="text-decoration: none; ">
+          {% if user.is_superuser %}
+        <h5  class="text-center"> ➕ Add item </h5>
+        {% endif %}
+        </a>
+        <table class="table">
+          <thead>
+            <tr>
+              
+              <th scope="col"></th>
+              <th scope="col">Item</th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          {% for k in detail_obj.hotels.all %}
+          <tbody>
+            <tr>
+              
+              <td><img src="{{k.pic.url}}" style="width:30px; height: 30px;"></td>
+              <td>{{k.item}}</td>
+              <td>₹ {{k.price}}</td>
+              {% if user.is_superuser %}
+              <td><a href="{% url 'edit-menu' k.id %}" style="text-decoration: none;">✏️ EDIT</a></td>
+              {% endif %}
+              
+            </tr>
+           
+          </tbody>
+         {%  endfor %}
+        </table>
+      </div>
+    </div>
+    
+
+ 
+  
+
+</div>
+
+{% endblock content %}

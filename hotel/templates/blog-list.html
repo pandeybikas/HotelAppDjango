@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block titile %}  All Blogs {% endblock titile %}  
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+       
+                {% for blog in all_blog %}
+                {% if blog.approved %}
+                <div class="col-4 p-3 shadow me-3" style="width: 32%;">
+                    <img src="{{blog.image.url}}" style="width: 100%; height: 240px;">
+                    <a href="{%  url 'blog-detail' blog.slug %}" style="text-decoration: none; color: green">
+                    <h5 class="mt-2" style="color: green">{{blog.title}}</h5>
+                    </a>
+                    <p>{{blog.desc |truncatechars:150 }}</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <b>🕑 {{blog.publish_date}}</b>
+                        </div>
+                        <div class="col-6">
+                            <b class="text-right">👨‍🏫{{blog.author}}</b>
+                        </div>
+                    </div>
+                   
+                </div>
+                {% endif %}
+                {% endfor %}
+        
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
+
+

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Update profile  {% endblock title %}
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+    <form method="POST" enctype="multipart/form-data" class="w-50 p-3 shadow">
+        <h3>Update Profile Info </h3>
+        {% csrf_token %}
+        {{editform.as_p}}
+        <button type="submit" class="btn btn-success">Update </button>
+        <a href="{% url 'profile' %}" class="btn btn-info">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock content %}
+
